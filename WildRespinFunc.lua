@@ -35,14 +35,14 @@ function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
         for y=1,SlotsGameLua.m_nRowCount - 1 do
             local nkey = SlotsGameLua.m_nRowCount * x + y
             local nSymbolID = result[nkey]
-            local nPreSymbolID = result[nkey - 1]
+            --local nPreSymbolID = result[nkey - 1]
             local id = LevelCommonFunctions:checkSymbolAdjacent(x, nSymbolID, nPreSymbolID)
             if x ~= 1 and id == SlotsGameLua:GetSymbolIdxByType(SymbolType.Wild) then
                 while id == nNullSymbolID or id == nWildSymbolID do
                     id = SlotsGameLua.m_randomChoices[x + 1]:Choice()
                 end
             end
-            result[nkey] = id
+            --result[nkey] = id
         end
     end
 
