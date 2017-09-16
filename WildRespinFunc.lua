@@ -25,6 +25,8 @@ function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
             --local nPreSymbolID = result[nkey - 1]
             --local nSymbolID = result[nkey]
             local nPreSymbolID = result[nkey - 1]
+
+            
             local id = LevelCommonFunctions:checkSymbolAdjacent(x, nSymbolID, nPreSymbolID)
             if x ~= 1 and id == SlotsGameLua:GetSymbolIdxByType(SymbolType.Wild) then
                 while id == nNullSymbolID or id == nWildSymbolID do
@@ -34,6 +36,8 @@ function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
             --result[nkey] = id
         end
     end
+
+    --光合作用的威力多么巨大
 
     --Test
     --result[1] = 1
