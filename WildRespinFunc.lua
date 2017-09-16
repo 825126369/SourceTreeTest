@@ -36,6 +36,8 @@ function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
             local nkey = SlotsGameLua.m_nRowCount * x + y
             local nSymbolID = result[nkey]
             --local nPreSymbolID = result[nkey - 1]
+            --local nSymbolID = result[nkey]
+            local nPreSymbolID = result[nkey - 1]
             local id = LevelCommonFunctions:checkSymbolAdjacent(x, nSymbolID, nPreSymbolID)
             if x ~= 1 and id == SlotsGameLua:GetSymbolIdxByType(SymbolType.Wild) then
                 while id == nNullSymbolID or id == nWildSymbolID do
