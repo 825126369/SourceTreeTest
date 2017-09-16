@@ -67,6 +67,7 @@ function WildRespinFunc:CreateReelRandomSymbolList()
                     nSymbolID = SlotsGameLua.m_randomChoices[x + 1]:Choice()
                 end
             end
+            --I keep clam to go
             SlotsGameLua.m_listReelLua[x].m_listRandomSymbolID[i] = nSymbolID
         end
     end
