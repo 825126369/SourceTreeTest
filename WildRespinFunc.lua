@@ -4,19 +4,7 @@ WildRespinFunc = {}
 WildRespinFunc.m_fAnyBarReward = 2.0
 WildRespinFunc.m_fAny7Reward = 3.0
 
-function  WildRespinFunc:GetDeck(bFreeSpinFlag)
-    local result = {}
-    for x=0,SlotsGameLua.m_nReelCount - 1 do
-        for y=0,SlotsGameLua.m_nRowCount - 1 do
-            local SymbolKey = SlotsGameLua.m_nRowCount * x + y
-            --local SymbolIdx = SlotsGameLua.m_randomChoices[x + 1]:Choice()
-            result[SymbolKey] = SymbolIdx
-        end
-    end
 
-    self:ModifyResult(result,bFreeSpinFlag)
-    return result
-end
 
 
 
