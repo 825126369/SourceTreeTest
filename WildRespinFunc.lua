@@ -18,6 +18,8 @@ function  WildRespinFunc:GetDeck(bFreeSpinFlag)
     return result
 end
 
+
+
 --1:每列中的元素不能相邻,Wild 元素 只在 中间列,1x,3x,5x 只出现在1，3列
 function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
     local nNullSymbolID = SlotsGameLua:GetSymbolIdxByType(SymbolType.NullSymbol)
@@ -58,28 +60,7 @@ function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
 
 end
 
-function WildRespinFunc:CreateReelRandomSymbolList()
-    local nNullSymbolID = SlotsGameLua:GetSymbolIdxByType(SymbolType.NullSymbol)
-    local nWildSymbolID = SlotsGameLua:GetSymbolIdByTypeAndKindTag(SymbolType.Wild,"Wild")
 
-    local cnt = 40 --必须为偶数
-    for x=0, SlotsGameLua.m_nReelCount-1 do
-        SlotsGameLua.m_listReelLua[x].m_listRandomSymbolID = {}
-        for i=1, cnt do
-            local nSymbolID = SlotsGameLua.m_randomChoices[x+1]:Choice()
-            if i > 1 then
-                local nPreSymbolID = SlotsGameLua.m_listReelLua[x].m_listRandomSymbolID[i-1]
-                nSymbolID = LevelCommonFunctions:checkSymbolAdjacent(x, nSymbolID, nPreSymbolID)
-            end
-            if x ~= 1 and nSymbolID == SlotsGameLua:GetSymbolIdByTypeAndKindTag(SymbolType.Wild,"Wild") then
-                while nSymbolID == nNullSymbolID or nSymbolID == nWildSymbolID do
-                    nSymbolID = SlotsGameLua.m_randomChoices[x + 1]:Choice()
-                end
-            end
-            SlotsGameLua.m_listReelLua[x].m_listRandomSymbolID[i] = nSymbolID
-        end
-    end
-end
 
 function WildRespinFunc:PreCheckWin()
     local bInRespinFlag = SlotsGameLua.m_GameResult:InReSpin() --是否在ReSpin的时候结算
