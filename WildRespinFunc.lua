@@ -352,23 +352,6 @@ function WildRespinFunc:CheckSpinWinPayLines(deck, result, bSimulationFlag)
     return result
 end
 
-function WildRespinFunc:getLuckyStarValue(deck)
-    local nReelID = 3
-    local nkey = SlotsGameLua.m_nRowCount * nReelID + 1
-    local nSymbolID = deck[nkey]
-    local strTag = SlotsGameLua:GetSymbol(nSymbolID).m_strKindTag
-    if strTag == "X1" then
-        return 1.0
-    end
-    if strTag == "X3" then
-        return 3.0
-    end
-    if strTag == "X5" then
-        return 5.0
-    end
-    return 1.0
-end
-
 --仿真，把结果 输入到文本文件中
 function WildRespinFunc:Simulation()
     self:GetTestResultByRate()
