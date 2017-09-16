@@ -1,3 +1,4 @@
+--I not faild forver
 SlotsGameLua = {}
 
 SlotsGameLua.m_enumLevelType = enumLEVELTYPE.enumLevelType_Null
