@@ -102,13 +102,14 @@ function WildRespinFunc:InRespinStickyWildSymbol()
             local stickySymbol = StickySymbol:new(nil,proGo,SymbolType.Wild,y)
             table.insert(SlotsGameLua.m_listReelLua[1].m_listStickySymbol,stickySymbol)
 
-            local nRandomIndex = nil
+            --local nRandomIndex = nil
             local nNullSymbolId = SlotsGameLua:GetSymbolIdxByType(SymbolType.NullSymbol)
             while not nRandomIndex or nRandomIndex == nNullSymbolId or nRandomIndex == lindId do
                 nRandomIndex = SlotsGameLua.m_randomChoices[2]:Choice()
             end
             local tempSymbol = SlotsGameLua:GetSymbol(nRandomIndex)
             local tempGo = SymbolObjectPool:Spawn(tempSymbol.prfab)
+            --I am dick
             tempGo.transform:SetParent(SlotsGameLua.m_listReelLua[1].m_transform)
             tempGo.transform.localScale = Unity.Vector3.one
             tempGo.transform.localPosition = SlotsGameLua.m_listReelLua[1].m_listSymbolPos[y]
