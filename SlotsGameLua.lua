@@ -1102,21 +1102,17 @@ function SlotsGameLua:CheckSpinWinPayLines(deck, result, bSimulationFlag)
             iResult[x] = deck[ self.m_nRowCount * x + ld.Slots[x] ]
         end
 
-        local nMaxMatchReelID = 0
-        local MatchCount = 0
-        local bFirstSymbol = false
-        local SymbolIdx = -1
         for x=0,self.m_nReelCount-1 do
             local bNormalFlag = self:GetSymbol(iResult[x]):IsNormalSymbol()
             if not bFirstSymbol then
                 if not self:GetSymbol(iResult[x]):IsWild() then
                     if (not bNormalFlag) and  (MatchCount > 0) then -- 这是遇到scatter牌了
                         break
-                    end
+                    endsfdsf sf 
                     SymbolIdx = iResult[x]
                     bFirstSymbol = true
                 end
-
+sdf sdf sdf
                 MatchCount = MatchCount + 1
                 nMaxMatchReelID = x
             else

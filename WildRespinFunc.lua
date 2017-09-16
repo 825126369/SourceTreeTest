@@ -1,10 +1,7 @@
-require "Lua/GameLogic/WildRespin/WildRespinLevelUI"
 WildRespinFunc = {}
 
 WildRespinFunc.m_fAnyBarReward = 2.0
 WildRespinFunc.m_fAny7Reward = 3.0
-
-
 
 
 
@@ -48,7 +45,28 @@ function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
 
 end
 
+function WildRespinFunc:CreateReelRandomSymbolList()
+    local nNullSymbolID = SlotsGameLua:GetSymbolIdxByType(SymbolType.NullSymbol)
+    local nWildSymbolID = SlotsGameLua:GetSymbolIdByTypeAndKindTag(SymbolType.Wild,"Wild")
 
+    local cnt = 40 --必须为偶数
+    for x=0, SlotsGameLua.m_nReelCount-1 do
+        SlotsGameLua.m_listReelLua[x].m_listRandomSymbolID = {}
+        for i=1, cnt do
+            local nSymbolID = SlotsGameLua.m_randomChoices[x+1]:Choice()
+            if i > 1 then
+                local nPreSymbolID = SlotsGameLua.m_listReelLua[x].m_listRandomSymbolID[i-1]
+                nSymbolID = LevelCommonFunctions:checkSymbolAdjacent(x, nSymbolID, nPreSymbolID)
+            end
+            if x ~= 1 and nSymbolID == SlotsGameLua:GetSymbolIdByTypeAndKindTag(SymbolType.Wild,"Wild") then
+                while nSymbolID == nNullSymbolID or nSymbolID == nWildSymbolID do
+                    nSymbolID = SlotsGameLua.m_randomChoices[x + 1]:Choice()
+                end
+            end
+            SlotsGameLua.m_listReelLua[x].m_listRandomSymbolID[i] = nSymbolID
+        end
+    end
+end
 
 function WildRespinFunc:PreCheckWin()
     local bInRespinFlag = SlotsGameLua.m_GameResult:InReSpin() --是否在ReSpin的时候结算
@@ -172,11 +190,11 @@ function WildRespinFunc:IsWin0Deck_payLines()
 
         local nSymbolCount = #SlotsGameLua.m_listSymbolLua
 
-        nMaxMatchReelID = MatchCount - 1
+        --nMaxMatchReelID = MatchCount - 1
         if MatchCount >= 1 then
             local fCombReward = 0.0
             local bcond2 = false
-            local nCombIndex = -1
+            l--ocal nCombIndex = -1
             local sd = SlotsGameLua:GetSymbol(SymbolIdx)
             if bCheckAnyCombFlag and MatchCount>=3 then
                 bcond2 = true
