@@ -369,6 +369,8 @@ function WildRespinFunc:getLuckyStarValue(deck)
     return 1.0
 end
 
+
+
 --仿真，把结果 输入到文本文件中
 function WildRespinFunc:Simulation()
     self:GetTestResultByRate()
