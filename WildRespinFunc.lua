@@ -17,7 +17,7 @@ function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
         result[3] = nNullSymbolID
         result[6] = nNullSymbolID
     end
-
+    --I keep hunk ?
     for x=0, SlotsGameLua.m_nReelCount -1 do
         for y=1,SlotsGameLua.m_nRowCount - 1 do
             local nkey = SlotsGameLua.m_nRowCount * x + y
