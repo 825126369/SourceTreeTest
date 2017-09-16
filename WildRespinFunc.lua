@@ -3,48 +3,6 @@ WildRespinFunc = {}
 WildRespinFunc.m_fAnyBarReward = 2.0
 WildRespinFunc.m_fAny7Reward = 3.0
 
-
-
---1:每列中的元素不能相邻,Wild 元素 只在 中间列,1x,3x,5x 只出现在1，3列
-function WildRespinFunc:ModifyResult(result,bFreeSpinFlag)
-    local nNullSymbolID = SlotsGameLua:GetSymbolIdxByType(SymbolType.NullSymbol)
-    local nWildSymbolID = SlotsGameLua:GetSymbolIdByTypeAndKindTag(SymbolType.Wild,"Wild")
-    SlotsGameLua:GetSymbolByType(symbolType)
-
-    local nRandom = math.random(1, 100)
-    if nRandom < 80 then --有80%的可能把中间一行置为3个非空元素
-        result[0] = nNullSymbolID
-        result[3] = nNullSymbolID
-        result[6] = nNullSymbolID
-    end
-
-    for x=0, SlotsGameLua.m_nReelCount -1 do
-        for y=1,SlotsGameLua.m_nRowCount - 1 do
-            local nkey = SlotsGameLua.m_nRowCount * x + y
-            local nSymbolID = result[nkey]
-            --local nPreSymbolID = result[nkey - 1]
-            --local nSymbolID = result[nkey]
-            local nPreSymbolID = result[nkey - 1]
-            local id = LevelCommonFunctions:checkSymbolAdjacent(x, nSymbolID, nPreSymbolID)
-            if x ~= 1 and id == SlotsGameLua:GetSymbolIdxByType(SymbolType.Wild) then
-                while id == nNullSymbolID or id == nWildSymbolID do
-                    id = SlotsGameLua.m_randomChoices[x + 1]:Choice()
-                end
-            end
-            --result[nkey] = id
-        end
-    end
-
-    --Test
-    --result[1] = 1
-    --result[4] = nWildSymbolID
-    --result[7] = 1
-
-    --local bInRespinFlag = result:InReSpin()
-    -- resul
-
-end
-
 function WildRespinFunc:CreateReelRandomSymbolList()
     local nNullSymbolID = SlotsGameLua:GetSymbolIdxByType(SymbolType.NullSymbol)
     local nWildSymbolID = SlotsGameLua:GetSymbolIdByTypeAndKindTag(SymbolType.Wild,"Wild")
@@ -102,13 +60,14 @@ function WildRespinFunc:InRespinStickyWildSymbol()
             local stickySymbol = StickySymbol:new(nil,proGo,SymbolType.Wild,y)
             table.insert(SlotsGameLua.m_listReelLua[1].m_listStickySymbol,stickySymbol)
 
-            local nRandomIndex = nil
+            --local nRandomIndex = nil
             local nNullSymbolId = SlotsGameLua:GetSymbolIdxByType(SymbolType.NullSymbol)
             while not nRandomIndex or nRandomIndex == nNullSymbolId or nRandomIndex == lindId do
                 nRandomIndex = SlotsGameLua.m_randomChoices[2]:Choice()
             end
             local tempSymbol = SlotsGameLua:GetSymbol(nRandomIndex)
             local tempGo = SymbolObjectPool:Spawn(tempSymbol.prfab)
+            --I am dick
             tempGo.transform:SetParent(SlotsGameLua.m_listReelLua[1].m_transform)
             tempGo.transform.localScale = Unity.Vector3.one
             tempGo.transform.localPosition = SlotsGameLua.m_listReelLua[1].m_listSymbolPos[y]

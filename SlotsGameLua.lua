@@ -134,6 +134,9 @@ function SlotsGameLua:initLevelParam()
     
     self.m_nRowCount = game.RowCount
 
+
+
+
     local Symbols = game.Symbols
     local symbolCount = Symbols.Count
     for i=1, symbolCount do
